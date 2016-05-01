@@ -10,7 +10,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int buttonState = digitalRead(buttonPin);
-  if(buttonState == 1) {
+  if(buttonState == HIGH) {
       digitalWrite(ledPin, HIGH);
     } else {
       digitalWrite(ledPin, LOW);  
