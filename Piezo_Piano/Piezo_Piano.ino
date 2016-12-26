@@ -1,12 +1,24 @@
-#define button_C 1
-#define button_D 2
-#define button_E 3
-#define button_F 4
-#define button_G 5
-#define button_A 6
-#define button_B 7
+#define speakerPin 11
+#define C_BUTTON 8
+#define D_BUTTON 7
+#define E_BUTTON 6
+#define F_BUTTON 5
+#define G_BUTTON 4
+#define A_BUTTON 3
+#define B_BUTTON 2
 
-#define speaker 13
+#define NOTE_C4  262
+#define NOTE_CS4 277
+#define NOTE_D4  294
+#define NOTE_DS4 311
+#define NOTE_E4  330
+#define NOTE_F4  349
+#define NOTE_FS4 370
+#define NOTE_G4  392
+#define NOTE_GS4 415
+#define NOTE_A4  440
+#define NOTE_AS4 466
+#define NOTE_B4  494
 
 int buttonstate_C = 0;
 int buttonstate_D = 0;
@@ -15,81 +27,76 @@ int buttonstate_F = 0;
 int buttonstate_G = 0;
 int buttonstate_A = 0;
 int buttonstate_B = 0;
-int buttonstate_Cup = 0;
 
-//NOTES         'c'  , 'd',  'e',  'f',  'g', 'a',  'b',  'C'
-int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014}; //freq
-int Cur_tone = 0;
+//#include<pitches.h>
 
 void setup()
 {
-//  Serial.begin(9600);
-  pinMode(button_C, INPUT);
-  pinMode(button_D, INPUT);
-  pinMode(button_E, INPUT);
-  pinMode(button_F, INPUT);
-  pinMode(button_G, INPUT);
-  pinMode(button_A, INPUT);
-  pinMode(button_B, INPUT);
+  pinMode(speakerPin, OUTPUT);
+  pinMode(C_BUTTON, INPUT);
+  pinMode(D_BUTTON, INPUT);
+  pinMode(E_BUTTON, INPUT);
+  pinMode(F_BUTTON, INPUT);
+  pinMode(G_BUTTON, INPUT);
+  pinMode(A_BUTTON, INPUT);
+  pinMode(B_BUTTON, INPUT);
 
-  pinMode(speaker, OUTPUT);
 }
+
+int tones[] = { 1915, 1700, 1519, 1432, 1275, 1136, 1014, 956 }; //freq
+int Cur_tone = 0;
 
 void loop()
 {
-//  buttonstate_C = digitalRead(button_C);
-//  buttonstate_D = digitalRead(button_D);
-//  buttonstate_E = digitalRead(button_E);
-//  buttonstate_F = digitalRead(button_F);
-//  buttonstate_G = digitalRead(button_G);
-//  buttonstate_A = digitalRead(button_A);
-//  buttonstate_B = digitalRead(button_B);
-////  Serial.println(buttonstate_C);
-//
-//  if((buttonstate_C == HIGH) || (buttonstate_E == HIGH) || 
-//    (buttonstate_G == HIGH) || (buttonstate_D == HIGH) || 
-//    (buttonstate_F == HIGH) || (buttonstate_A == HIGH) || 
-//    (buttonstate_B == HIGH) || (buttonstate_Cup == HIGH) )
-//  { 
-//    if (buttonstate_C == HIGH)
-//    {
-//      Cur_tone = tones[0];
-//    } 
-//    if (buttonstate_E == HIGH)
-//    {
-//      Cur_tone = tones[1];
-//    }
-//    if (buttonstate_G == HIGH)
-//    {
-//      Cur_tone = tones[2];
-//    }
-//    if (buttonstate_D == HIGH)
-//    {
-//      Cur_tone = tones[3];
-//    }
-//    if (buttonstate_F == HIGH)
-//    {
-//      Cur_tone = tones[4];
-//    }
-//    if (buttonstate_A == HIGH)
-//    {
-//      Cur_tone = tones[5];
-//    }
-//    if (buttonstate_B == HIGH)
-//    {
-//      Cur_tone = tones[6];
-//    }
-//
-//    digitalWrite(speaker, HIGH);
-//    delayMicroseconds(Cur_tone);
-//    digitalWrite(speaker, LOW);
-//    delayMicroseconds(Cur_tone);
-//  }
-//  else //in case no button is pressed , close the piezo
-//  {
-//    digitalWrite(speaker, LOW);
-//  }
-digitalWrite(speaker, HIGH);
-delayMicroseconds(1915);
-digitalWrite(speaker, LOW);
+  buttonstate_C = digitalRead(C_BUTTON);
+  buttonstate_D = digitalRead(D_BUTTON);
+  buttonstate_E = digitalRead(E_BUTTON);
+  buttonstate_F = digitalRead(F_BUTTON);
+  buttonstate_G = digitalRead(G_BUTTON);
+  buttonstate_A = digitalRead(A_BUTTON);
+  buttonstate_B = digitalRead(B_BUTTON);
+
+if((buttonstate_C == HIGH) || (buttonstate_E == HIGH) || 
+    (buttonstate_G == HIGH) || (buttonstate_D == HIGH) || 
+    (buttonstate_F == HIGH) || (buttonstate_A == HIGH) || 
+    (buttonstate_B == HIGH))
+  { 
+    if (buttonstate_C == HIGH)
+    {
+      Cur_tone = tones[0];
+    } 
+    if (buttonstate_D == HIGH)
+    {
+      Cur_tone = tones[1];
+    }
+    if (buttonstate_E == HIGH)
+    {
+      Cur_tone = tones[2];
+    }
+    if (buttonstate_F == HIGH)
+    {
+      Cur_tone = tones[3];
+    }
+    if (buttonstate_G == HIGH)
+    {
+      Cur_tone = tones[4];
+    }
+    if (buttonstate_A == HIGH)
+    {
+      Cur_tone = tones[5];
+    }
+    if (buttonstate_B == HIGH)
+    {
+      Cur_tone = tones[6];
+    }
+
+    digitalWrite(speakerPin, HIGH);
+    delayMicroseconds(Cur_tone);
+    digitalWrite(speakerPin, LOW);
+    delayMicroseconds(Cur_tone);
+}
+  else //in case no button is pressed , close the piezo
+  {
+    digitalWrite(speakerPin, LOW);
+  }
 }
